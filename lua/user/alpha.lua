@@ -5,30 +5,47 @@ end
 
 local dashboard = require("alpha.themes.dashboard")
 dashboard.section.header.val = {
-	[[                               __                ]],
-	[[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
-	[[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
-	[[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-	[[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
-	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+[[                _             _             _                  _              _             _       _  ]],
+[[               _\ \          / /\          /\_\               /\ \     _    /\ \           / /\    / /\]],
+[[              /\__ \        / /  \        / / /         _    /  \ \   /\_\ /  \ \         / / /   / / /]],
+[[             / /_ \_\      / / /\ \       \ \ \__      /\_\ / /\ \ \_/ / // /\ \ \       / /_/   / / / ]],
+[[            / / /\/_/     / / /\ \ \       \ \___\    / / // / /\ \___/ // / /\ \ \     / /\ \__/ / /  ]],
+[[           / / /         / / /  \ \ \       \__  /   / / // / /  \/____// / /  \ \_\   / /\ \___\/ /   ]],
+[[          / / /         / / /___/ /\ \      / / /   / / // / /    / / // / /    \/_/  / / /\/___/ /    ]],
+[[         / / / ____    / / /_____/ /\ \    / / /   / / // / /    / / // / /          / / /   / / /     ]],
+[[        / /_/_/ ___/\ / /_________/\ \ \  / / /___/ / // / /    / / // / /________  / / /   / / /      ]],
+[[       /_______/\__\// / /_       __\ \_\/ / /____\/ // / /    / / // / /_________\/ / /   / / /       ]],
+[[       \_______\/    \_\___\     /____/_/\/_________/ \/_/     \/_/ \/____________/\/_/    \/_/        ]],
+[[                                                                                                       ]],
+[[                                                                                                       ]],
+[[                           _            _              _      _                _                       ]],
+[[                          / /\         /\ \           /\ \   /\_\             /\ \                     ]],
+[[                         / /  \       /  \ \         /  \ \ / / /         _   \_\ \                    ]],
+[[                        / / /\ \__   / /\ \ \       / /\ \ \\ \ \__      /\_\ /\__ \                   ]],
+[[                       / / /\ \___\ / / /\ \ \     / / /\ \ \\ \___\    / / // /_ \ \                  ]],
+[[                       \ \ \ \/___// / /  \ \_\   / / /  \ \_\\__  /   / / // / /\ \ \                 ]],
+[[                        \ \ \     / / /    \/_/  / / /   / / // / /   / / // / /  \/_/                 ]],
+[[                    _    \ \ \   / / /          / / /   / / // / /   / / // / /                        ]],
+[[                   /_/\__/ / /  / / /________  / / /___/ / // / /___/ / // / /                         ]],
+[[                   \ \/___/ /  / / /_________\/ / /____\/ // / /____\/ //_/ /                          ]],
+[[                    \_____\/   \/____________/\/_________/ \/_________/ \_\/                           ]],
 }
+
+
 dashboard.section.buttons.val = {
 	dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
-	dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
+	dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
 	dashboard.button("p", "  Find project", ":Telescope projects <CR>"),
-	dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
-	dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
+	dashboard.button("o", "  Norg Start", ":NeorgStart <CR>"),
 	dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
-	dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
 }
 
 local function footer()
 -- NOTE: requires the fortune-mod package to work
-	-- local handle = io.popen("fortune")
-	-- local fortune = handle:read("*a")
-	-- handle:close()
-	-- return fortune
-	return "chrisatmachine.com"
+	local handle = io.popen("dadjoke | cowsay -n -f vader")
+	local fortune = handle:read("*a")
+	handle:close()
+	return fortune
 end
 
 dashboard.section.footer.val = footer()

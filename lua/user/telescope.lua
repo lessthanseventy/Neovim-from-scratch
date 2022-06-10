@@ -8,9 +8,22 @@ local actions = require "telescope.actions"
 telescope.setup {
   defaults = {
 
+    layout_strategy = "bottom_pane",
+    sorting_strategy = "ascending",
+
+    layout_config = {
+      bottom_pane = {
+        height = 0.6,
+      },
+    },
+
+    -- preview = {
+    --   treesitter = false
+    -- },
+
     prompt_prefix = " ",
     selection_caret = " ",
-    path_display = { "smart" },
+    -- path_display = "smart",
 
     mappings = {
       i = {
@@ -36,8 +49,8 @@ telescope.setup {
         ["<PageUp>"] = actions.results_scrolling_up,
         ["<PageDown>"] = actions.results_scrolling_down,
 
-        ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+        ["<Tab>"] = actions.toggle_selection,
+        ["<S-Tab>"] = actions.toggle_selection,
         ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-l>"] = actions.complete_tag,
@@ -51,8 +64,8 @@ telescope.setup {
         ["<C-v>"] = actions.select_vertical,
         ["<C-t>"] = actions.select_tab,
 
-        ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+        ["<Tab>"] = actions.toggle_selection,
+        ["<S-Tab>"] = actions.toggle_selection,
         ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 
@@ -79,18 +92,28 @@ telescope.setup {
   },
   pickers = {
     -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
+    file_browser = {
+      cwd_to_path = true,
+      grouped = true,
+      hijack_netrw = true
+    },
     -- Now the picker_config_key will be applied every time you call this
     -- builtin picker
   },
   extensions = {
     -- Your extension configuration goes here:
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
+    media_files = {
+      -- filetypes whitelist
+      -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+      filetypes = { "png", "webm", "jpg", "jpeg", "pdf" },
+      find_cmd = "rg", -- find command (defaults to `fd`)
+      no_hidden = true
+    },
+    file_browser = {
+      cwd_to_path = true,
+      prompt_position = "top",
+      grouped = true,
+      hijack_netrw = true
+    }
   },
 }

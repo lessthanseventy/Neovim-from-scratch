@@ -51,9 +51,9 @@ cmp.setup {
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
-  mapping = {
+  mapping = cmp.mapping.preset.insert({
     ["<C-k>"] = cmp.mapping.select_prev_item(),
-		["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -93,7 +93,7 @@ cmp.setup {
       "i",
       "s",
     }),
-  },
+  }),
   formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
@@ -101,18 +101,18 @@ cmp.setup {
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
-        nvim_lsp = "[LSP]",
-        luasnip = "[Snippet]",
-        buffer = "[Buffer]",
-        path = "[Path]",
+        cmp_tabnine = "| AI|",
+        nvim_lsp = "| LSP|",
+        luasnip = "| Snippet|",
+        path = "| Path|",
       })[entry.source.name]
       return vim_item
     end,
   },
   sources = {
+    { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "luasnip" },
-    { name = "buffer" },
     { name = "path" },
   },
   confirm_opts = {
@@ -123,9 +123,16 @@ cmp.setup {
     documentation = {
       border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
     },
+    completion = cmp.config.window.bordered(),
+  },
+  view = {
+    entries = "custom"
   },
   experimental = {
-    ghost_text = false,
-    native_menu = false,
-  },
+    ghost_text = true,
+  }
 }
+-- Set configuration for specific filetype.
+cmp.setup.filetype('norg', {
+  enabled = false
+})

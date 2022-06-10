@@ -17,7 +17,7 @@ local setup = {
       operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
       motions = true, -- adds help for motions
       text_objects = true, -- help for text objects triggered after entering an operator
-      windows = true, -- default bindings on <c-w>
+      windows = false, -- default bindings on <c-w>
       nav = true, -- misc bindings to work with windows
       z = true, -- bindings for folds, spelling and others prefixed with z
       g = true, -- bindings for prefixed with g
@@ -79,21 +79,17 @@ local opts = {
 }
 
 local mappings = {
+  ["<tab>"] = { "<cmd>b#<cr>", "Previous window" },
+  ["/"] = { "<cmd>Telescope live_grep<cr>", "Find in repo" },
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-  ["b"] = {
-    "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-    "Buffers",
-  },
-  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-  ["w"] = { "<cmd>w!<CR>", "Save" },
+  ["b"] = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffers" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["f"] = {
-    "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+    "<cmd>lua require('telescope.builtin').find_files()<cr>",
     "Find files",
   },
-  ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 
   p = {
@@ -105,12 +101,32 @@ local mappings = {
     u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
 
+  w = {
+    name = "Window",
+    m = { "<cmd>TZFocus<cr>", "Maximize window" },
+    h = { "<C-w>h", "Focus left" },
+    j = { "<C-w>j", "Focus down" },
+    k = { "<C-w>k", "Focus up" },
+    l = { "<C-w>l", "Focus right" },
+    d = { "<C-w>c", "Delete window" },
+    H = { "<cmd>WinShift left<CR>", "Move left" },
+    J = { "<cmd>WinShift down<CR>", "Move down" },
+    K = { "<cmd>WinShift up<CR>", "Move up" },
+    L = { "<cmd>WinShift right<CR>", "Move right" },
+    r = { "<C-w>r", "Rotate windows right" },
+    R = { "<C-w>R", "Rotate windows left" },
+    ["2"] = { "<C-w>v", "Layout double columns" },
+    ["="] = { "<C-w>=", "Balance windows" },
+    s = { "<C-w>s", "Split window below" },
+    v = { "<C-w>v", "Split window right" },
+  },
+
   g = {
     name = "Git",
     g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
     j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
     k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-    l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+    b = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
     p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
     r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
     R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
@@ -120,7 +136,7 @@ local mappings = {
       "Undo Stage Hunk",
     },
     o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+    B = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
     d = {
       "<cmd>Gitsigns diffthis HEAD<cr>",
@@ -151,6 +167,7 @@ local mappings = {
       "Prev Diagnostic",
     },
     l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
+    c = { "<cmd>lua vim.lsp.codelens.refresh()<cr>", "CodeLens Display" },
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
@@ -159,10 +176,18 @@ local mappings = {
       "Workspace Symbols",
     },
   },
+  x = {
+    name = "Trouble",
+    x = { "<cmd>Trouble<cr>", "Trouble" },
+    w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace diagnostics" },
+    d = { "<cmd>Trouble document_diagnostics<cr>", "Document diagnostics" },
+    l = { "<cmd>Trouble loclist<cr>", "Location List" },
+    q = { "<cmd>Trouble quickfix<cr>", "Quickfix" },
+  },
   s = {
     name = "Search",
-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+    s = { "<cmd>lua require('spectre').open()<CR>", "Search and/or replace" },
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
@@ -170,18 +195,54 @@ local mappings = {
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
   },
-
+  -- t = {
+  --   name = "Test",
+  --   a = { "<Plug>(ultest-run-file)", "Run tests in file" },
+  --   t = { "<Plug>(ultest-run-nearest)", "Run focused test" },
+  --   l = { "<Plug>(ultest-run-last)", "Re-run last test(s)" },
+  --   s = { "<Plug>(ultest-summary-toggle)", "Test summary window" },
+  --   d = { "<Plug>(ultest-output-show)", "Test output window" },
+  -- },
+  T = {
+    name = "Toggle",
+    g = { "<cmd>GoldenSizeToggle<cr>", "Golden Ratio" },
+    b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Git blame" },
+    c = { "<cmd>NvimContextVtToggle<cr>", "Context" },
+    r = { "<cmd>exec &nu==&rnu? 'se nu!' : 'se rnu!'<cr>", "Relative line numbering" },
+    z = { "<cmd>TZAtaraxis<cr>", "Zen mode" },
+    p = { "<cmd>lua require('hlargs').toggle()<cr>", "Highlight params" }
+  },
+  y = {
+    name = "Yank",
+    y = { "<cmd>let @+ = expand('%').':'.line('.')<cr>", "Relative path and line number" },
+    f = { "<cmd>let @+ = expand('%')<cr>", "Relative file path" },
+    F = { "<cmd>let @+ = expand('%:p')<cr>", "Absolute file path" }
+  },
+  n = {
+    name = "Neorg",
+    h = { "<cmd>Trouble neorg<cr>", "Browse headings" },
+    m = { "<cmd>Neorg inject-metadata<cr>", "Inject metadata" },
+    g = { "<cmd>Neorg gtd views<cr>", "GTD Views" },
+    c = { "<cmd>Neorg gtd capture<cr>", "GTD Capture" },
+    o = { "<cmd>Neorg workspace default<cr>", "Start default workspace" },
+    p = { "<cmd>Neorg presenter start<cr>", "Start presentation" },
+    t = { "<cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_cycle<cr>", "Cycle task status" }
+  },
   t = {
     name = "Terminal",
-    n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-    u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-    t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
-    p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
-    f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-    h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-    v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+    h = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
+    i = { "<cmd>lua _IEX_TOGGLE()<cr>", "IEx" },
+    e = { "<cmd>TermExec cmd='elixir %'<cr>", "Elixir execute current file" },
+    m = { "<cmd>TermExec cmd='mix run %'<cr>", "Mix run current file" },
+    t = { "<cmd>lua _MIX_TEST_LINE()<cr>", "Mix test current line" },
+    f = { "<cmd>lua _MIX_TEST_FILE()<cr>", "Mix test current file" },
+    a = { "<cmd>lua _MIX_TEST_ALL()<cr>", "Mix test all" },
+    ["="] = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+    ["|"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+    ["-"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
   },
 }
+-- t = { "<cmd>TermExec cmd='mix test %:<slnum>'<cr>", "Run test at line" },
 
 which_key.setup(setup)
 which_key.register(mappings, opts)
