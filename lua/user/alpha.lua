@@ -38,6 +38,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("p", "  Find project", ":Telescope projects <CR>"),
 	dashboard.button("o", "  Norg Start", ":NeorgStart <CR>"),
 	dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
+  dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
 }
 
 local function footer()

@@ -42,10 +42,9 @@ packer.init {
 return packer.startup(function(use)
   -- My plugins here
   use "wbthomason/packer.nvim" -- Have packer manage itself
-  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
-  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
-  use "numToStr/Comment.nvim" -- Easily comment stuff
+  --Visual
+  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "kyazdani42/nvim-web-devicons"
   use {
     "stevearc/dressing.nvim",
@@ -58,116 +57,10 @@ return packer.startup(function(use)
       })
     end
   }
-  use "akinsho/bufferline.nvim"
-  use "moll/vim-bbye"
-  use "akinsho/toggleterm.nvim"
-  use "ahmedkhalf/project.nvim"
-  use "lewis6991/impatient.nvim"
-  use "lukas-reineke/indent-blankline.nvim"
-  use "goolord/alpha-nvim"
-  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
-  use "folke/which-key.nvim"
-  use {
-    "ur4ltz/surround.nvim",
-    config = function()
-      require "surround".setup { mappings_style = "surround" }
-    end
-  }
   use {
     "yamatsum/nvim-nonicons",
     requires = { 'kyazdani42/nvim-web-devicons' }
   }
-  use { "feline-nvim/feline.nvim" }
-
-  use {
-    "mfussenegger/nvim-dap",
-    config = function()
-      local dap = require("dap")
-
-      dap.adapters.mix_task = {
-        type = 'executable',
-        command = '/home/andrew/.local/share/nvim/lsp_servers/elixir/elixir-ls/debugger.sh', -- debugger.bat for windows
-        args = {}
-      }
-      dap.configurations.elixir = {
-        {
-          type = "mix_task",
-          name = "mix test",
-          task = 'test',
-          taskArgs = { "--trace" },
-          request = "launch",
-          startApps = true, -- for Phoenix projects
-          projectDir = "${workspaceFolder}",
-          requireFiles = {
-            "test/**/test_helper.exs",
-            "test/**/*_test.exs"
-          }
-        },
-      }
-    end
-  }
-
-  use {
-    "rcarriga/nvim-dap-ui",
-    config = function()
-      require("dapui").setup()
-    end
-  }
-
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {
-        dimming = {
-          alpha = 0.45, -- amount of dimming
-          -- we try to get the foreground from the highlight groups or fallback color
-          color = { "Normal", "#ffffff" },
-          inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
-        },
-        context = 25
-      }
-    end
-  }
-  use {
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
-  use {
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      require "lsp_signature".setup()
-    end
-  }
-  use "anuvyklack/nvim-keymap-amend"
-  use {
-    "luukvbaal/stabilize.nvim",
-    config = function() require("stabilize").setup() end
-  }
-  use {
-    "sindrets/winshift.nvim",
-    config = function() require("winshift").setup() end
-  }
-  use {
-    "beauwilliams/focus.nvim",
-    config = function()
-      require("focus").setup({
-        signcolumn = false,
-        excluded_filetypes = { "UltestSummary", "spectre_panel", "toggleterm" }
-      })
-    end }
-  use {
-    "karb94/neoscroll.nvim",
-    config = function() require("neoscroll").setup() end
-  }
-
   use {
     "edluffy/specs.nvim",
     config = function() require('specs').setup {
@@ -189,52 +82,37 @@ return packer.startup(function(use)
       }
     end
   }
-  use {
-    "j-hui/fidget.nvim",
-    config = function() require("fidget").setup() end
-  }
-  use "rhysd/clever-f.vim"
-  use "chaoren/vim-wordmotion"
-  use "romainl/vim-cool"
-  use "wellle/targets.vim"
-  use "andweeb/presence.nvim"
-  use {
-    "nvim-pack/nvim-spectre",
-    config = function() require("spectre").setup() end
-  }
   use "SmiteshP/nvim-gps"
+  -- use "EdenEast/nightfox.nvim" -- Packer
 
-  -- Colorschemes
-  -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
-  -- use "lunarvim/darkplus.nvim"
-  use {
-    "rebelot/kanagawa.nvim",
-    config = function()
-      require('kanagawa').setup({
-        undercurl = true, -- enable undercurls
-        commentStyle = "italic",
-        functionStyle = "NONE",
-        keywordStyle = "italic",
-        statementStyle = "bold",
-        typeStyle = "NONE",
-        variablebuiltinStyle = "italic",
-        specialReturn = true, -- special highlight for the return keyword
-        specialException = true, -- special highlight for exception handling keywords
-        transparent = false, -- do not set background color
-        -- dimInactive = true, -- dim inactive window `:h hl-NormalNC`
-        globalStatus = false, -- adjust window separators highlight for laststatus=3
-        colors = {},
-        overrides = {},
-      })
-    end
-  }
-  use "EdenEast/nightfox.nvim" -- Packer
+  -- use {
+  --   "rebelot/kanagawa.nvim",
+  --   config = function()
+  --     require('kanagawa').setup({
+  --       undercurl = true, -- enable undercurls
+  --       commentStyle = { italic = true },
+  --       functionStyle = {},
+  --       keywordStyle = { italic = true },
+  --       statementStyle = { bold = true },
+  --       typeStyle = {},
+  --       variablebuiltinStyle = { italic = true },
+  --       specialReturn = true, -- special highlight for the return keyword
+  --       specialException = true, -- special highlight for exception handling keywords
+  --       transparent = true, -- do not set background color
+  --       dimInactive = true, -- dim inactive window `:h hl-NormalNC`
+  --       globalStatus = true, -- adjust window separators highlight for laststatus=3
+  --       colors = {},
+  --       overrides = {
+  --       },
+  --     })
+  --   end
+  -- }
+
   use {
     "catppuccin/nvim",
     as = "catppuccin",
     config = function()
       require("catppuccin").setup({
-        term_colors = true,
         integrations = {
           treesitter = true,
           native_lsp = {
@@ -291,11 +169,12 @@ return packer.startup(function(use)
     end
   }
   use {
-    "sunjon/Shade.nvim",
+    "lessthanseventy/Shade.nvim",
     config = function()
       require 'shade'.setup({
         overlay_opacity = 50,
         opacity_step = 1,
+        exclude_filetypes = { "spectre_panel", "toggleterm", "pr", "help" },
         keys = {
           brightness_up   = '<C-Up>',
           brightness_down = '<C-Down>',
@@ -304,16 +183,39 @@ return packer.startup(function(use)
       })
     end
   }
+  use { "kevinhwang91/nvim-hlslens",
+    config = function()
+      local kopts = { noremap = true, silent = true }
 
+      vim.api.nvim_set_keymap('n', 'n',
+        [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+        kopts)
+      vim.api.nvim_set_keymap('n', 'N',
+        [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+        kopts)
+      vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+    end
+  }
+  use {
+    "winston0410/smart-cursor.nvim",
+    config = function()
+      local kopts = { noremap = true, silent = true }
+      vim.api.nvim_set_keymap('n', 'o',
+        'o<cmd>lua require("smart-cursor").indent_cursor()<cr>', kopts)
+      vim.api.nvim_set_keymap('n', 'O',
+        'O<cmd>lua require("smart-cursor").indent_cursor()<cr>', kopts)
+    end
+  }
   use {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup()
     end
   }
-
   use "rcarriga/nvim-notify"
-
   use {
     'gelguy/wilder.nvim',
     config = function()
@@ -334,44 +236,6 @@ return packer.startup(function(use)
       for i, fg in ipairs(gradient) do
         gradient[i] = wilder.make_hl('WilderGradient' .. i, 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = fg } })
       end
-
-      wilder.set_option('pipeline', {
-        wilder.branch(
-          wilder.python_file_finder_pipeline({
-            file_command = function(ctx, arg)
-              if string.find(arg, '.') ~= nil then
-                return { 'fdfind', '-tf', '-H' }
-              else
-                return { 'fdfind', '-tf' }
-              end
-            end,
-            dir_command = { 'fd', '-td' },
-            filters = { 'cpsm_filter' },
-          }),
-          wilder.substitute_pipeline({
-            fuzzy = 2,
-            pipeline = wilder.python_search_pipeline({
-              skip_cmdtype_check = 1,
-              pattern = wilder.python_fuzzy_pattern({
-                start_at_boundary = 0,
-              }),
-            }),
-          }),
-          wilder.cmdline_pipeline({
-            fuzzy = 2,
-            fuzzy_filter = wilder.lua_fzy_filter(),
-          }),
-          {
-            wilder.check(function(ctx, x) return x == '' end),
-            wilder.history(),
-          },
-          wilder.python_search_pipeline({
-            pattern = wilder.python_fuzzy_pattern({
-              start_at_boundary = 0,
-            }),
-          })
-        ),
-      })
 
       local popupmenu_renderer = wilder.popupmenu_renderer(
         wilder.popupmenu_border_theme({
@@ -396,7 +260,7 @@ return packer.startup(function(use)
             wilder.popupmenu_scrollbar(),
           },
           max_height = '25%',
-          reverse = 1,        -- if 1, shows the candidates from bottom to top
+          reverse = 1, -- if 1, shows the candidates from bottom to top
         })
       )
 
@@ -419,12 +283,138 @@ return packer.startup(function(use)
       }))
     end
   }
+
+  --Functionality
+  use {
+    "nkakouros-original/numbers.nvim",
+    config = function()
+      require('numbers').setup()
+    end
+  }
+  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+  use "numToStr/Comment.nvim" -- Easily comment stuff
+  use "akinsho/bufferline.nvim"
+  use "moll/vim-bbye"
+  use "akinsho/toggleterm.nvim"
+  use "ahmedkhalf/project.nvim"
+  use "lewis6991/impatient.nvim"
+  use "lukas-reineke/indent-blankline.nvim"
+  use "goolord/alpha-nvim"
+  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
+  use "folke/which-key.nvim"
+  use {
+    "ur4ltz/surround.nvim",
+    config = function()
+      require "surround".setup { mappings_style = "surround" }
+    end
+  }
+  use "feline-nvim/feline.nvim"
   use "romgrk/fzy-lua-native"
   use "nixprime/cpsm"
+  use "romainl/vim-cool"
+  use "wellle/targets.vim"
+  use "andweeb/presence.nvim"
   use {
-    "phaazon/hop.nvim",
+    "nvim-pack/nvim-spectre",
+    config = function() require("spectre").setup() end
+  }
+  -- use {
+  --   "phaazon/hop.nvim",
+  --   config = function()
+  --     require('hop').setup()
+  --   end
+  -- }
+  use { "ggandor/leap.nvim",
     config = function()
-      require('hop').setup()
+      require('leap').set_default_keymaps()
+      require('leap').setup {
+        case_insensitive = true,
+        special_keys = {
+          repeat_search = '<enter>',
+          next_match    = '<enter>',
+          prev_match    = '<tab>',
+          next_group    = '<space>',
+          prev_group    = '<tab>',
+          eol           = '<space>',
+        },
+      }
+    end
+  }
+  -- use {
+  --   "j-hui/fidget.nvim",
+  --   config = function() require("fidget").setup() end
+  -- }
+  use "rhysd/clever-f.vim"
+  use "chaoren/vim-wordmotion"
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        dimming = {
+          alpha = 0.45, -- amount of dimming
+          -- we try to get the foreground from the highlight groups or fallback color
+          color = { "Normal", "#ffffff" },
+          inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+        },
+        context = 25
+      }
+    end
+  }
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+  use { 'anuvyklack/pretty-fold.nvim',
+    config = function()
+      require('pretty-fold').setup({
+        keep_indentation = false,
+        fill_char = '━',
+        sections = {
+          left = {
+            '━ ', function() return string.rep('*', vim.v.foldlevel) end, ' ━┫', 'content', '┣'
+          },
+          right = {
+            '┫ ', 'number_of_folded_lines', ' ┣━━',
+          }
+        }
+      })
+      require('pretty-fold.preview').setup({ key = 'l' })
+    end
+  }
+  use "anuvyklack/nvim-keymap-amend"
+  use {
+    "luukvbaal/stabilize.nvim",
+    config = function() require("stabilize").setup() end
+  }
+  use {
+    "sindrets/winshift.nvim",
+    config = function() require("winshift").setup() end
+  }
+  use {
+    "beauwilliams/focus.nvim",
+    config = function()
+      require("focus").setup({
+        signcolumn = false,
+        excluded_filetypes = { "UltestSummary", "spectre_panel", "toggleterm", "pr", "help" }
+      })
+    end
+  }
+  use {
+    "karb94/neoscroll.nvim",
+    config = function()
+      require("neoscroll").setup({
+        easing_function = "sine",
+        pre_hook = function() vim.wo.cursorline = false end,
+        post_hook = function() vim.wo.cursorline = true end
+      })
     end
   }
 
@@ -448,21 +438,10 @@ return packer.startup(function(use)
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
-  use { 'anuvyklack/pretty-fold.nvim',
+  use {
+    "ray-x/lsp_signature.nvim",
     config = function()
-      require('pretty-fold').setup({
-        keep_indentation = false,
-        fill_char = '━',
-        sections = {
-          left = {
-            '━ ', function() return string.rep('*', vim.v.foldlevel) end, ' ━┫', 'content', '┣'
-          },
-          right = {
-            '┫ ', 'number_of_folded_lines', ' ┣━━',
-          }
-        }
-      })
-      require('pretty-fold.preview').setup({ key = 'l' })
+      require "lsp_signature".setup()
     end
   }
 
@@ -530,36 +509,60 @@ return packer.startup(function(use)
       })
     end
   }
-  use { "kevinhwang91/nvim-hlslens",
-    config = function()
-      local kopts = { noremap = true, silent = true }
-
-      vim.api.nvim_set_keymap('n', 'n',
-        [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-        kopts)
-      vim.api.nvim_set_keymap('n', 'N',
-        [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-        kopts)
-      vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-    end
-  }
-  use {
-    "winston0410/smart-cursor.nvim",
-    config = function()
-      local kopts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', 'o',
-        'o<cmd>lua require("smart-cursor").indent_cursor()<cr>', kopts)
-      vim.api.nvim_set_keymap('n', 'O',
-        'O<cmd>lua require("smart-cursor").indent_cursor()<cr>', kopts)
-    end
-  }
 
   -- Git
   use "lewis6991/gitsigns.nvim"
   use "kdheepak/lazygit.nvim"
+  use {
+    'ldelossa/gh.nvim',
+    requires = 'ldelossa/litee.nvim',
+    config = function()
+      require('litee.lib').setup()
+      require('litee.gh').setup({
+        -- deprecated, around for compatability for now.
+        jump_mode             = "invoking",
+        -- remap the arrow keys to resize any litee.nvim windows.
+        map_resize_keys       = false,
+        -- do not map any keys inside any gh.nvim buffers.
+        disable_keymaps       = false,
+        -- the icon set to use.
+        icon_set              = "default",
+        -- any custom icons to use.
+        icon_set_custom       = nil,
+        -- whether to register the @username and #issue_number omnifunc completion
+        -- in buffers which start with .git/
+        git_buffer_completion = true,
+        -- defines keymaps in gh.nvim buffers.
+        keymaps               = {
+          -- when inside a gh.nvim panel, this key will open a node if it has
+          -- any futher functionality. for example, hitting <CR> on a commit node
+          -- will open the commit's changed files in a new gh.nvim panel.
+          open = "<CR>",
+          -- when inside a gh.nvim panel, expand a collapsed node
+          expand = "zo",
+          -- when inside a gh.nvim panel, collpased and expanded node
+          collapse = "zc",
+          -- when cursor is over a "#1234" formatted issue or PR, open its details
+          -- and comments in a new tab.
+          goto_issue = "gd",
+          -- show any details about a node, typically, this reveals commit messages
+          -- and submitted review bodys.
+          details = "d",
+          -- inside a convo buffer, submit a comment
+          submit_comment = "<C-s>",
+          -- inside a convo buffer, when your cursor is ontop of a comment, open
+          -- up a set of actions that can be performed.
+          actions = "<C-a>",
+          -- inside a thread convo buffer, resolve the thread.
+          resolve_thread = "<C-r>",
+          -- inside a gh.nvim panel, if possible, open the node's web URL in your
+          -- browser. useful particularily for digging into external failed CI
+          -- checks.
+          goto_web = "gx"
+        }
+      })
+    end
+  }
 
   --Neorg
   use {

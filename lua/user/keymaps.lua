@@ -30,7 +30,6 @@ keymap("n", "<C-o>", "<cmd>lua require('telescope').extensions.file_browser.file
 keymap("n", "<leader>e", "<cmd>lua require('telescope').extensions.file_browser.file_browser({path = '%:p:h', grouped = true})<cr>", opts)
 keymap("n", "<leader><leader>", ":", opts)
 keymap("n", "<F1>", "<cmd>Telescope help_tags<CR>", opts)
-keymap("n", 's', ':HopChar2<CR>', opts)
 keymap("n", 'n', 'n:lua require("specs").show_specs()<CR>', opts)
 keymap("n", 'N', 'N:lua require("specs").show_specs()<CR>', opts)
 keymap("v", "m", ":lua require('tsht').nodes()<CR>", opts)

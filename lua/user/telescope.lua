@@ -4,6 +4,7 @@ if not status_ok then
 end
 
 local actions = require "telescope.actions"
+local fb_actions = require "telescope".extensions.file_browser.actions
 
 telescope.setup {
   defaults = {
@@ -39,6 +40,7 @@ telescope.setup {
         ["<Up>"] = actions.move_selection_previous,
 
         ["<CR>"] = actions.select_default,
+        ["<C-CR>"] = actions.select_default,
         ["<C-x>"] = actions.select_horizontal,
         ["<C-v>"] = actions.select_vertical,
         ["<C-t>"] = actions.select_tab,
@@ -60,6 +62,7 @@ telescope.setup {
       n = {
         ["<esc>"] = actions.close,
         ["<CR>"] = actions.select_default,
+        ["<C-CR>"] = actions.select_default,
         ["<C-x>"] = actions.select_horizontal,
         ["<C-v>"] = actions.select_vertical,
         ["<C-t>"] = actions.select_tab,
@@ -113,7 +116,7 @@ telescope.setup {
       cwd_to_path = true,
       prompt_position = "top",
       grouped = true,
-      hijack_netrw = true
-    }
-  },
+      hijack_netrw = true,
+    },
+  }
 }
