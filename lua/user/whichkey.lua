@@ -252,7 +252,7 @@ local mappings = {
     name = "Toggle",
     g = { "<cmd>GoldenSizeToggle<cr>", "Golden Ratio" },
     b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Git blame" },
-    c = { "<cmd>NvimContextVtToggle<cr>", "Context" },
+    c = { "<cmd>ContextToggle<cr>", "Context" },
     r = { "<cmd>exec &nu==&rnu? 'se nu!' : 'se rnu!'<cr>", "Relative line numbering" },
     z = { "<cmd>TZAtaraxis<cr>", "Zen mode" },
     p = { "<cmd>lua require('hlargs').toggle()<cr>", "Highlight params" }

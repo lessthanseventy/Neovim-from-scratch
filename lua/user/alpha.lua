@@ -43,7 +43,7 @@ dashboard.section.buttons.val = {
 
 local function footer()
 -- NOTE: requires the fortune-mod package to work
-	local handle = io.popen("dadjoke | cowsay -n -f vader")
+	local handle = io.popen("fortune -s | cowsay -n -f vader")
 	local fortune = handle:read("*a")
 	handle:close()
 	return fortune

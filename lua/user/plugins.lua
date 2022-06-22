@@ -83,31 +83,29 @@ return packer.startup(function(use)
     end
   }
   use "SmiteshP/nvim-gps"
-  -- use "EdenEast/nightfox.nvim" -- Packer
-
-  -- use {
-  --   "rebelot/kanagawa.nvim",
-  --   config = function()
-  --     require('kanagawa').setup({
-  --       undercurl = true, -- enable undercurls
-  --       commentStyle = { italic = true },
-  --       functionStyle = {},
-  --       keywordStyle = { italic = true },
-  --       statementStyle = { bold = true },
-  --       typeStyle = {},
-  --       variablebuiltinStyle = { italic = true },
-  --       specialReturn = true, -- special highlight for the return keyword
-  --       specialException = true, -- special highlight for exception handling keywords
-  --       transparent = true, -- do not set background color
-  --       dimInactive = true, -- dim inactive window `:h hl-NormalNC`
-  --       globalStatus = true, -- adjust window separators highlight for laststatus=3
-  --       colors = {},
-  --       overrides = {
-  --       },
-  --     })
-  --   end
-  -- }
-
+  use "EdenEast/nightfox.nvim"
+  use {
+    "rebelot/kanagawa.nvim",
+    config = function()
+      require('kanagawa').setup({
+        undercurl = true, -- enable undercurls
+        commentStyle = { italic = true },
+        functionStyle = {},
+        keywordStyle = { italic = true },
+        statementStyle = { bold = true },
+        typeStyle = {},
+        variablebuiltinStyle = { italic = true },
+        specialReturn = true, -- special highlight for the return keyword
+        specialException = true, -- special highlight for exception handling keywords
+        transparent = true, -- do not set background color
+        dimInactive = true, -- dim inactive window `:h hl-NormalNC`
+        globalStatus = true, -- adjust window separators highlight for laststatus=3
+        colors = {},
+        overrides = {
+        },
+      })
+    end
+  }
   use {
     "catppuccin/nvim",
     as = "catppuccin",
@@ -289,6 +287,12 @@ return packer.startup(function(use)
     "nkakouros-original/numbers.nvim",
     config = function()
       require('numbers').setup()
+    end
+  }
+  use {
+    "wellle/context.vim",
+    config = function()
+      vim.g.context_enabled = 0
     end
   }
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter

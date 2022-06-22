@@ -31,21 +31,19 @@ local options = {
   wrap = false,                            -- display lines as one long line
   scrolloff = 8,                           -- is one of my fav
   sidescrolloff = 8,
-  guifont = "monospace:h12",               -- the font used in graphical neovim applications
   wildmenu = false
 }
-
-vim.opt.guifont = {"Cascadia Code PL", ":h12"}
-vim.opt.shortmess:append "c"
-vim.g.neovide_fullscreen = true
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
-vim.g.notify = require("notify")
 
-vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.opt.shortmess:append "c"
+vim.opt.guifont = {"Cascadia Code PL", ":h12"}
+vim.g.notify = require("notify")
+vim.g.python3_host_prog = '/home/andrew/.asdf/installs/python/3.9.10/bin/python'
+
+-- vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set foldmethod=indent]]
 vim.cmd [[set foldlevelstart=999]]
-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work

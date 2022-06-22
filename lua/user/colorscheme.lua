@@ -1,6 +1,6 @@
 vim.cmd [[
 try
-  colorscheme catppuccin
+  colorscheme duskfox
   set scl=yes
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
