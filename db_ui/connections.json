@@ -1,0 +1,10 @@
+[
+  {
+    "url": "postgresql://postgres:postgres@localhost:5432/coa_opal_dev",
+    "name": "coa_opal_dev"
+  },
+  {
+    "url": "postgresql://postgres:postgres@localhost:5432/dashboard_dev",
+    "name": "dashboard_dev"
+  }
+]

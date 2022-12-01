@@ -1,27 +1,24 @@
-# A Basic Stable IDE config for Neovim
+## LaunchScout.nvim
+A Neovim Distribution for polyglots. Particularly nice for Elixir ;)
 
-> Why does this repo exist?
+## Core Ideas
+It is based around the concept of space as a leader key. Whichkey is used to display a helpful menu with the shortcuts.
 
-This config attempts to provide a rock solid fully featured starting point for someone new to Neovim, or just tired of maintaining the basic IDE components of their config. 
+- `Ctrl+hjkl` moves between windows.
+- `HL` moves left and right between tabs.
+- `F1` gives you a builtin help search.
+- `<F8>` displays a tree-view of whatever project you are in.
+- `<F9>` displays a pop-up terminal.
+- `gd` to go to the definition of whatever your cursor is on.
+- `gr` to display a quickfix list of references to whatever your cursor is on.
+- `K` to get help for whatever your cursor is on.
+- `<Space> g g` to get a pop-up window displaying [Lazygit]("https://github.com/jesseduffield/lazygit#configuration")
 
-> What makes it "rock solid"?
-
-All of the included plugins are pinned to a version that ensures they are compatible and will not update potentially introducing errors into your config. For every Neovim release I will update this repo along with the community to keep it up to date with the newest versions.
-
-As I mentioned, this config is meant as a starting point for people new to Neovim who want a familiar IDE experience. The config has a very simple structure that makes it easy to add new plugins. 
-
-## Install Neovim 0.7
-
-You can install Neovim with your package manager e.g. brew, apt, pacman etc.. but remember that when you update your packages Neovim may be upgraded to a newer version.
-
-If you would like to make sure Neovim only updates when you want it to than I recommend installing from source:
-
+## Install Neovim nightly
 ```sh
-git clone https://github.com/neovim/neovim.git
-cd neovim
-git checkout release-0.7
-make CMAKE_BUILD_TYPE=Release
-sudo make install
+asdf plugin add neovim
+asdf install neovim nightly
+asdf global neovim nightly
 ```
 
 ## Install the config
@@ -29,14 +26,17 @@ sudo make install
 Make sure to remove or move your current `nvim` directory
 
 ```sh
-git clone https://github.com/LunarVim/nvim-basic-ide.git ~/.config/nvim
+git clone https://github.com/lessthanseventy/neovim-config/ ~/.config/nvim
 ```
 
-Run `nvim` and wait for the plugins to be installed 
+Run `nvim` press colon to enter command mode. Then enter `PackerSync` and press enter to install the plugins.
 
 **NOTE** (You will notice treesitter pulling in a bunch of parsers the next time you open Neovim) 
 
-**NOTE** Checkout this file for some predefined keymaps: [keymaps](https://github.com/LunarVim/nvim-basic-ide/blob/master/lua/user/keymaps.lua)
+**NOTE** Checkout this file for some predefined keymaps: [keymaps](https://github.com/lessthanseventy/neovim-config/blob/master/lua/config/keymaps.lua)
+
+**NOTE** Checkout this file for the whichkey keymaps: [keymaps](https://github.com/lessthanseventy/neovim-config/blob/master/lua/config/whichkey.lua)
+
 
 ## Get healthy
 
@@ -77,14 +77,21 @@ Next we need to install python support (node is optional)
 
 We will also need `ripgrep` for Telescope to work: 
 
-- Ripgrep
+- On mac
 
   ```sh
-  sudo apt install ripgrep
+  brew install ripgrep
+  ```
+
+- On ubuntu
+
+  ```sh
+  brew install ripgrep
   ```
 ---
 
-**NOTE** make sure you have [node](https://nodejs.org/en/) installed, I recommend a node manager like [fnm](https://github.com/Schniz/fnm).
+**NOTE** make sure you have [node](https://nodejs.org/en/) installed through asdf.
+
 
 ## Fonts
 
@@ -96,70 +103,155 @@ I recommend using the following repo to get a "Nerd Font" (Font that supports ic
 
 ### LSP
 
-To add a new LSP
+To add a new LSP, Formatter, or Linter
 
 First Enter:
 
 ```
-:LspInstallInfo
+:Mason
 ```
 
-and press `i` on the Language Server you wish to install
-
-Next you will need to add the server to this list: [servers](https://github.com/LunarVim/nvim-basic-ide/blob/8b9ec3bffe8c8577042baf07c75408532a733fea/lua/user/lsp/lsp-installer.lua#L6)
-
-### Formatters and linters
-
-Make sure the formatter or linter is installed and add it to this setup function: [null-ls](https://github.com/LunarVim/nvim-basic-ide/blob/8b9ec3bffe8c8577042baf07c75408532a733fea/lua/user/lsp/null-ls.lua#L13)
-
-**NOTE** Some are already setup as examples, remove them if you want
+and press `i` on what you wish to install. Press `g?` to get additional help.
 
 ### Plugins
 
-You can install new plugins here: [plugins](https://github.com/LunarVim/nvim-basic-ide/blob/8b9ec3bffe8c8577042baf07c75408532a733fea/lua/user/plugins.lua#L42)
+You can install new plugins here: [plugins](https://github.com/lessthanseventy/neovim-config/blob/master/lua/plugins.lua)
 
 ---
 
 ## Plugins
 
-- [packer](https://github.com/wbthomason/packer.nvim)
-- [plenary](https://github.com/nvim-lua/plenary.nvim)
-- [nvim-autopairs](https://github.com/windwp/nvim-autopairs)
-- [Comment.nvim](https://github.com/numToStr/Comment.nvim)
-- [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring)
-- [nvim-web-devicons](https://github.com/kyazdani42/nvim-web-devicons)
-- [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua)
-- [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)
-- [vim-bbye](https://github.com/moll/vim-bbye)
-- [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
-- [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)
-- [project.nvim](https://github.com/ahmedkhalf/project.nvim)
-- [impatient.nvim](https://github.com/lewis6991/impatient.nvim)
-- [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)
-- [alpha-nvim](https://github.com/goolord/alpha-nvim)
-- [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)
-- [darkplus.nvim](https://github.com/LunarVim/darkplus.nvim)
-- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
-- [cmp-buffer](https://github.com/hrsh7th/cmp-buffer)
-- [cmp-path](https://github.com/hrsh7th/cmp-path)
-- [cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip)
-- [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)
-- [cmp-nvim-lua](https://github.com/hrsh7th/cmp-nvim-lua)
-- [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
-- [friendly-snippets](https://github.com/rafamadriz/friendly-snippets)
-- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
-- [nvim-lsp-installer](https://github.com/williamboman/nvim-lsp-installer)
-- [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim)
-- [vim-illuminate](https://github.com/RRethy/vim-illuminate)
-- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-- [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
-- [nvim-dap](https://github.com/mfussenegger/nvim-dap)
-- [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)
-- [DAPInstall.nvim](https://github.com/ravenxrz/DAPInstall.nvim)
-
+- "wbthomason/packer.nvim"
+- "lewis6991/impatient.nvim"
+- "nixprime/cpsm"
+- "romgrk/fzy-lua-native"
+- "monkoose/matchparen.nvim"
+- "nvim-lua/plenary.nvim"
+- "rcarriga/nvim-notify"
+- "catppuccin/nvim"
+- "NVChad/nvim-colorizer.lua"
+- "background"
+- "rktjmp/lush.nvim"
+- "nvim-colortils/colortils.nvim"
+- "goolord/alpha-nvim"
+- "andweeb/presence.nvim"
+- "kdheepak/lazygit.nvim"
+- "SmiteshP/nvim-gps"
+- "TimUntersberger/neogit"
+- "lewis6991/gitsigns.nvim"
+- "tpope/vim-fugitive"
+- "rbong/vim-flog"
+- "ruifm/gitlinker.nvim"
+- "pwntester/octo.nvim"
+- "akinsho/git-conflict.nvim"
+- "f-person/git-blame.nvim"
+- "tanvirtin/vgit.nvim"
+- "mbbill/undotree"
+- "segeljakt/vim-silicon"
+- "folke/which-key.nvim"
+- "mrjones2014/legendary.nvim"
+- "lukas-reineke/indent-blankline.nvim"
+- "kyazdani42/nvim-web-devicons"
+- "numToStr/Comment.nvim"
+- "tpope/vim-surround"
+- "andymass/vim-matchup"
+- "wellle/targets.vim"
+- "unblevable/quick-scope"
+- "chaoren/vim-wordmotion"
+- "kazhala/close-buffers.nvim"
+- "chentoast/marks.nvim"
+- "antoinemadec/FixCursorHold.nvim"
+- "winston0410/smart-cursor.nvim"
+- "monaqa/dial.nvim"
+- "max397574/better-escape.nvim"
+- "karb94/neoscroll.nvim"
+- "myusuf3/numbers.vim"
+- "google/vim-searchindex"
+- "tyru/open-browser.vim"
+- "bennypowers/nvim-regexplainer"
+- "tpope/vim-projectionist"
+- "tpope/vim-rails"
+- "https://codeberg.org/esensar/nvim-dev-container"
+- "inkarkat/vim-CursorLineCurrentWindow"
+- "folke/lsp-colors.nvim"
+- "petertriho/nvim-scrollbar"
+- "simeji/winresizer"
+- "anuvyklack/windows.nvim"
+- "moll/vim-bbye"
+- "romainl/vim-cool"
+- "yamatsum/nvim-nonicons"
+- "edluffy/specs.nvim"
+- "kevinhwang91/nvim-hlslens"
+- "danymat/neogen"
+- "rhysd/clever-f.vim"
+- "ggandor/leap.nvim"
+- "stevearc/gkeep.nvim"
+- "iamcco/markdown-preview.nvim"
+- "nvim-neorg/neorg"
+- "phaazon/mind.nvim"
+- "feline-nvim/feline.nvim"
+- "nvim-lualine/lualine.nvim"
+- "b0o/incline.nvim"
+- "nvim-treesitter/nvim-treesitter"
+- "wellle/context.vim"
+- "m-demare/hlargs.nvim"
+- "mfussenegger/nvim-treehopper"
+- "haringsrob/nvim_context_vt"
+- "nvim-telescope/telescope.nvim"
+- "kyazdani42/nvim-tree.lua"
+- "https://gitlab.com/yorickpeterse/nvim-window"
+- "sindrets/winshift.nvim"
+- "ray-x/guihua.lua"
+- "doums/suit.nvim"
+- "nanozuki/tabby.nvim"
+- "hrsh7th/nvim-cmp"
+- "windwp/nvim-autopairs"
+- "windwp/nvim-ts-autotag"
+- "RRethy/nvim-treesitter-endwise"
+- "folke/neodev.nvim"
+- "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
+- "neovim/nvim-lspconfig"
+- "folke/trouble.nvim"
+- "filipdutescu/renamer.nvim"
+- "mhanberg/elixir.nvim"
+- "metakirby5/codi.vim"
+- "simrat39/rust-tools.nvim"
+- "saecki/crates.nvim"
+- "ray-x/go.nvim"
+- "kassio/neoterm"
+- "akinsho/toggleterm.nvim"
+- "mfussenegger/nvim-dap"
+- "andrewferrier/debugprint.nvim"
+- "nvim-neotest/neotest"
+- "tzachar/cmp-tabnine"
+- "ThePrimeagen/harpoon"
+- "ThePrimeagen/refactoring.nvim"
+- "nvim-pack/nvim-spectre"
+- "https://gitlab.com/yorickpeterse/nvim-pqf"
+- "kevinhwang91/nvim-ufo"
+- "dstein64/vim-startuptime"
+- "nathom/filetype.nvim"
+- "folke/noice.nvim"
+- "j-hui/fidget.nvim"
+- "vuki656/package-info.nvim"
+- "jedrzejboczar/possession.nvim"
+- "folke/todo-comments.nvim"
+- "sindrets/diffview.nvim"
+- "liuchengxu/vista.vim"
+- "sidebar-nvim/sidebar.nvim"
+- "stevearc/aerial.nvim"
+- "hkupty/iron.nvim"
+- "stevearc/overseer.nvim"
+- "user.run_script"
+- "michaelb/sniprun"
+- "tpope/vim-dadbod"
+- "vim-scripts/dbext.vim"
+- "nanotee/sqls.nvim"
+- "dinhhuy258/vim-database"
+- "protex/better-digraphs.nvim"
+- "ziontee113/icon-picker.nvim"
+- "m-demare/attempt.nvim"
+- "mg979/vim-visual-multi"
+- "anuvyklack/hydra.nvim"
+- "levouh/tint.nvim"
 ---
-
-> The computing scientist's main challenge is not to get confused by the complexities of his own making. 
-
-\- Edsger W. Dijkstra
