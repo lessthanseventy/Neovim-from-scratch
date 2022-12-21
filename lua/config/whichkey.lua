@@ -100,10 +100,6 @@ local function normal_keymap()
       "<cmd>lua require('telescope.builtin').buffers()<cr>",
       "Buffers",
     },
-    ["f"] = {
-      "<cmd>lua require('hydra').spawn('telescope_hydra')<cr>",
-      "Telescope",
-    },
     d = { name = "Debug" },
 
     q = { name = "Quit", q = { "<cmd>qa!<cr>", "DESTROY!" } },
@@ -232,6 +228,7 @@ local function normal_keymap()
         "<cmd>lua require('config.lsp.init').toggle_diagnostics()<CR>",
         "Display Errors",
       },
+      c = { "<cmd>TSContextToggle<CR>", "Toggle Context" },
     },
 
     z = {

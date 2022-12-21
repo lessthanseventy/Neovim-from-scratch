@@ -48,10 +48,6 @@ keymap("n", "<C-f>", "", opts)
 keymap("i", "<C-b>", "", opts)
 keymap("i", "<C-f>", "", opts)
 
--- Beter line wrap handling
-keymap("n", "j", "gj", opts)
-keymap("n", "k", "gk", opts)
-
 -- Dial (incrementing plugin)
 keymap("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
 keymap("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true })
@@ -68,6 +64,8 @@ keymap("n", "N", 'N:lua require("specs").show_specs()<CR>', opts)
 
 keymap("n", "<F9>", ":Ttoggle<cr>", opts)
 keymap("t", "<F9>", "<C-\\><C-n>:Tclose<cr>", opts)
+keymap("t", "j", "j", opts)
+keymap("t", "k", "k", opts)
 keymap("t", "jk", "<C-\\><C-n>", opts)
 
 keymap("n", "<F1>", "<cmd>Telescope help_tags<CR>", opts)
