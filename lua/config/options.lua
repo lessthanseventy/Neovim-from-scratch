@@ -43,8 +43,8 @@ vim.opt.foldenable = true
 vim.opt.laststatus = 3
 vim.opt.mousemodel = "extend"
 vim.opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
-vim.opt.splitkeep = "screen"
-vim.g.catppuccin_flavour = "mocha"
+-- Requires nightly
+-- vim.opt.splitkeep = "screen"
 
 vim.g.context_add_mappings = 0 -- disable vim.context keybindings
 
@@ -58,7 +58,7 @@ vim.g.neoterm_default_mod = "belowright"
 
 vim.g.python3_host_prog = "/usr/bin/python"
 -- vim.cmd([[let $PATH = '/home/andrew/.asdf/installs/nodejs/18.9.1 ' . $PATH]])
-vim.g.node_host_prog = "/home/andrew/.asdf/installs/nodejs/18.9.1/bin/neovim-node-host"
+-- vim.g.node_host_prog = "/home/andrew/.asdf/installs/nodejs/18.9.1/bin/neovim-node-host"
 vim.g.loaded_perl_provider = 0
 
 -- -- If the current system shell or the `shell` option is set to /usr/bin/fish then revert to sh

@@ -2,11 +2,12 @@ local M = {}
 
 function M.setup()
   require("noice").setup({
-    popupmenu = { enabled = true, backend = "cmp" },
+    popupmenu = { enabled = true },
     cmdline = {
+      enabled = true, -- enables the Noice cmdline UI
+      view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
       opts = { buf_options = { filetype = "vim" } },
       icons = {
-        ["/"] = { icon = "🔍 ", hl_group = "DiagnosticWarn" },
         ["?"] = { icon = "◀️ ", hl_group = "DiagnosticWarn" },
         [":"] = {
           icon = " ",
@@ -79,23 +80,15 @@ function M.setup()
     presets = {
       -- you can enable a preset by setting it to true, or a table that will override the preset config
       -- you can also add custom presets that you can enable/disable with enabled=true
-      bottom_search = false, -- use a classic bottom cmdline for search
+      bottom_search = true, -- use a classic bottom cmdline for search
       command_palette = false, -- position the cmdline and popupmenu together
       lsp_doc_border = true, -- add a border to hover docs and signature help
     },
-    routes = {
-      { view = "notify", filter = { event = "msg_showmode" } },
-      {
-        view = "notify",
-        filter = { find = "didChangeConfiguration" },
-        opts = { skip = true },
-      },
-      { view = "mini", filter = { find = "leader" }, opts = { skip = true } },
-    },
+    routes = {},
     views = {
       cmdline_popup = {
         position = { row = 20, col = "50%" },
-        size = { width = 60, height = "auto" },
+        size = { width = 90, height = "auto" },
       },
     },
   })

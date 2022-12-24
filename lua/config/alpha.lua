@@ -42,9 +42,9 @@ function M.setup()
     ),
     dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
     dashboard.button("p", "  Find project", ":Telescope projects <CR>"),
-    dashboard.button("r", "  Find repo", ":Telescope repo list <CR>"),
     dashboard.button("o", "  Norg Start", ":Neorg workspace work<CR>"),
     dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
+    dashboard.button("l", "  Lazy Package Manager", ":Lazy<CR>"),
     dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
   }
 
@@ -59,7 +59,7 @@ function M.setup()
   dashboard.section.footer.val = footer()
 
   dashboard.section.footer.opts.hl = "Type"
-  dashboard.section.header.opts.hl = "Include"
+  dashboard.section.header.opts.hl = "CursorLineNr"
   dashboard.section.buttons.opts.hl = "Keyword"
 
   dashboard.opts.opts.noautocmd = true

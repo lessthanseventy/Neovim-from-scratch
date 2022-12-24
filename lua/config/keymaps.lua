@@ -4,7 +4,9 @@ local keymap = vim.keymap.set
 local opts = { silent = true }
 
 -- Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+keymap("n", "<Space>", "<Nop>", opts)
+keymap("v", "<Space>", "<Nop>", opts)
+keymap("x", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -22,31 +24,10 @@ keymap("n", "<S-l>", ":tabn<CR>", opts)
 keymap("n", "<S-h>", ":tabp<CR>", opts)
 
 -- Better window navigation
--- keymap("n", "<C-h>", "<C-w>h", opts)
--- keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
-
-keymap("n", "<C-h>", function()
-  if vim.fn.winnr() == vim.fn.winnr("h") then
-    return "<cmd>tabprev<cr>"
-  else
-    return "<C-w>h"
-  end
-end, { expr = true, silent = true })
-
-keymap("n", "<C-l>", function()
-  if vim.fn.winnr() == vim.fn.winnr("l") then
-    return "<cmd>tabnext<cr>"
-  else
-    return "<C-w>l"
-  end
-end, { expr = true, silent = true })
-
-keymap("n", "<C-b>", "", opts)
-keymap("n", "<C-f>", "", opts)
-keymap("i", "<C-b>", "", opts)
-keymap("i", "<C-f>", "", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Dial (incrementing plugin)
 keymap("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
@@ -58,14 +39,10 @@ keymap("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = true })
 
 keymap("n", "<leader><leader>", "<cmd>lua vim.api.nvim_feedkeys(':', 'n', true)<cr>", opts)
 
--- Clear highlights
-keymap("n", "n", 'n:lua require("specs").show_specs()<CR>', opts)
-keymap("n", "N", 'N:lua require("specs").show_specs()<CR>', opts)
-
 keymap("n", "<F9>", ":Ttoggle<cr>", opts)
 keymap("t", "<F9>", "<C-\\><C-n>:Tclose<cr>", opts)
-keymap("t", "j", "j", opts)
-keymap("t", "k", "k", opts)
+-- keymap("t", "j", "j", opts)
+-- keymap("t", "k", "k", opts)
 keymap("t", "jk", "<C-\\><C-n>", opts)
 
 keymap("n", "<F1>", "<cmd>Telescope help_tags<CR>", opts)
@@ -86,7 +63,7 @@ end, { silent = true, expr = true })
 
 -- Visual --
 -- Better paste
-keymap("v", "p", '"_dP', opts)
+-- keymap("v", "p", '"_dP', opts)
 
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
@@ -113,24 +90,24 @@ keymap(
   opts
 )
 
--- hlslens
+-- -- hlslens
 
-keymap(
-  "n",
-  "n",
-  [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]],
-  { silent = true, noremap = true }
-)
-keymap(
-  "n",
-  "N",
-  [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-  { silent = true, noremap = true }
-)
-keymap("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], { silent = true, noremap = true })
-keymap("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], { silent = true, noremap = true })
-keymap("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], { silent = true, noremap = true })
-keymap("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], { silent = true, noremap = true })
+-- keymap(
+--   "n",
+--   "n",
+--   [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]],
+--   { silent = true, noremap = true }
+-- )
+-- keymap(
+--   "n",
+--   "N",
+--   [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+--   { silent = true, noremap = true }
+-- )
+-- keymap("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], { silent = true, noremap = true })
+-- keymap("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], { silent = true, noremap = true })
+-- keymap("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], { silent = true, noremap = true })
+-- keymap("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], { silent = true, noremap = true })
 
 -- Smart Cursor
 keymap("n", "o", 'o<cmd>lua require("smart-cursor").indent_cursor()<cr>', { noremap = true, silent = true })

@@ -38,7 +38,7 @@ local sources = {
   b.diagnostics.eslint_d,
   b.diagnostics.flake8.with({ extra_args = { "--max-line-length=120" } }),
   -- b.diagnostics.luacheck,
-  b.diagnostics.credo,
+  b.diagnostics.credo.with({ extra_args = { "--min-priority", "low" } }),
   b.diagnostics.tsc, -- b.diagnostics.selene,
   -- b.diagnostics.codespell,
   -- with_root_file(b.diagnostics.selene, "selene.toml"),

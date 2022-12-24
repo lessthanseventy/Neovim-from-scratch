@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-  local colors = require("catppuccin.palettes").get_palette("mocha")
+  local colors = require("tokyonight.colors").setup() -- pass in any of the config options as explained above
   require("incline").setup({
     hide = { only_win = false, focused_win = false, cursorline = true },
     ignore = {
@@ -33,14 +33,14 @@ function M.setup()
       if #bufname > max_len then
         return {
           " " .. icon .. " …" .. string.sub(bufname, #bufname - max_len, -1) .. " ",
-          guibg = colors.maroon,
-          guifg = colors.mantle,
+          guibg = colors.yellow,
+          guifg = colors.bg_dark,
         }
       else
         return {
           " " .. icon .. " " .. bufname .. " ",
-          guibg = colors.maroon,
-          guifg = colors.mantle,
+          guibg = colors.yellow,
+          guifg = colors.bg_dark,
         }
       end
     end,
@@ -50,7 +50,7 @@ function M.setup()
       placement = { horizontal = "right", vertical = "top" },
       margin = {
         horizontal = { left = 1, right = 1 },
-        vertical = { bottom = 0, top = 0 },
+        vertical = { bottom = 0, top = 1 },
       },
       padding = { left = 1, right = 2 },
       padding_char = " ",

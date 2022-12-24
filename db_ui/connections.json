@@ -6,5 +6,9 @@
   {
     "url": "postgresql://postgres:postgres@localhost:5432/dashboard_dev",
     "name": "dashboard_dev"
+  },
+  {
+    "url": "sqlite:///~/projects/ectoprint/Ectoprint_dev",
+    "name": "ectoprint_dev"
   }
 ]

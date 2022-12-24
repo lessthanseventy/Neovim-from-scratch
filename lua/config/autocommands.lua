@@ -13,11 +13,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = { "AlphaReady" },
   callback = function()
-    vim.cmd([[]])
     vim.cmd([[
       set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
       set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
-      let $PATH = '/home/andrew/.asdf/installs/nodejs/18.9.1 ' . $PATH
     ]])
   end,
 })
@@ -31,12 +29,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- Fixes Autocomment
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-  callback = function()
-    vim.cmd("set formatoptions-=cro")
-  end,
-})
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "sql", "mysql", "plsql" },
   callback = function()
@@ -44,13 +36,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "heex" },
-  callback = function()
-    vim.cmd([[
-      autocmd BufWritePre <buffer> Format
-    ]])
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--   pattern = { "heex" },
+--   callback = function()
+--     vim.cmd([[
+--       autocmd BufWritePre <buffer> Format
+--     ]])
+--   end,
+-- })
 vim.cmd("autocmd FileType dbui nmap <buffer> <c-j> <C-w>j")
 vim.cmd("autocmd FileType dbui nmap <buffer> <c-k> <C-w>k")

@@ -1,6 +1,7 @@
 local M = {}
 
 local navic = require("nvim-navic")
+local util = require("lspconfig/util")
 
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
@@ -57,6 +58,7 @@ local servers = {
 						"before_each",
 						"after_each",
 						"packer_plugins",
+						"require",
 					},
 				},
 				workspace = {
@@ -106,6 +108,25 @@ local servers = {
 			},
 		},
 	},
+	tailwindcss = {
+		init_options = { userLanguages = { heex = "html", elixir = "html" } },
+		settings = {
+			tailwindCSS = {
+				hovers = true,
+				suggestions = true,
+				codeActions = true,
+			},
+		},
+		root_dir = function(fname)
+			return
+				util.root_pattern("tailwind.config.js", "tailwind.config.ts")(fname) or util.root_pattern(
+				"postcss.config.js",
+				"postcss.config.ts"
+			)(fname) or M.find_package_assets_ancestor(fname) or util.find_node_modules_ancestor(fname) or util.find_git_ancestor(
+				fname
+			) or util.find_package_json_ancestor(fname)
+		end,
+	},
 	jdtls = {},
 	dockerls = {},
 	graphql = {},
@@ -117,6 +138,14 @@ local servers = {
 	marksman = {},
 	angularls = {},
 }
+
+function M.find_package_assets_ancestor(fname)
+	return util.search_ancestors(fname, function(path)
+		if util.path.is_dir(util.path.join(path, "assets")) then
+			return path
+		end
+	end)
+end
 
 function M.format()
 	local opts = {
@@ -195,7 +224,7 @@ local diagnostics_active = true
 function M.toggle_diagnostics()
 	diagnostics_active = not diagnostics_active
 	if diagnostics_active then
-		vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+		vim.diagnostic.config({ virtual_lines = true })
 	else
 		vim.diagnostic.config({ virtual_lines = false })
 	end

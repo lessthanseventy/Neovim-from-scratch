@@ -15,12 +15,12 @@ local conf = {
     -- No actual key bindings are created
     presets = {
       operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-      motions = true, -- adds help for motions
+      motions = false, -- adds help for motions
       text_objects = true, -- help for text objects triggered after entering an operator
       windows = false, -- default bindings on <c-w>
-      nav = true, -- misc bindings to work with windows
+      nav = false, -- misc bindings to work with windows
       z = true, -- bindings for folds, spelling and others prefixed with z
-      g = true, -- bindings for prefixed with g
+      g = false, -- bindings for prefixed with g
     },
   },
   -- add operators that will trigger motion and text object completion
@@ -57,7 +57,8 @@ local conf = {
   },
   ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
   hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-  show_help = true, -- show help message on the command line when the popup is visible
+  show_help = false, -- show help message on the command line when the popup is visible
+  show_keys = false,
   triggers = "auto", -- automatically setup triggers
   -- triggers = {"<leader>"} -- or specify a list manually
   triggers_blacklist = {
@@ -90,6 +91,10 @@ local v_opts = {
 
 local function normal_keymap()
   local keymap = {
+    ["<F1>"] = {
+      "<cmd>lua require('browse.devdocs').search()<cr>",
+      "Search devdocs.io",
+    },
     ["<tab>"] = { "<cmd>b#<cr>", "Previous window" },
     ["/"] = {
       "<cmd>lua require('telescope.builtin').live_grep()<cr>",
@@ -110,6 +115,15 @@ local function normal_keymap()
       f = { "<Cmd>DBUIFindBuffer<Cr>", "Find buffer" },
       r = { "<Cmd>DBUIRenameBuffer<Cr>", "Rename buffer" },
       q = { "<Cmd>DBUILastQueryInfo<Cr>", "Last query info" },
+    },
+
+    h = {
+      name = "Help",
+      h = {
+        "<cmd>lua require('browse.devdocs').search()<cr>",
+        "Search devdocs.io",
+      },
+      t = { "<cmd>Telescope tailiscope all<cr>", "Tailwind" },
     },
 
     w = {
@@ -189,9 +203,13 @@ local function normal_keymap()
       },
     },
 
-    s = {
-      name = "Search",
-      s = { [[ <Esc><Cmd>lua require('spectre').open()<CR>]], "Open" },
+    f = {
+      name = "Find",
+      f = { [[ <Esc><Cmd>Telescope find_files<CR>]], "Find files" },
+      s = {
+        [[ <Esc><Cmd>lua require('spectre').open()<CR>]],
+        "Spectre Search and Replace",
+      },
     },
 
     t = {
@@ -237,15 +255,14 @@ local function normal_keymap()
       c = { "<cmd>Telescope neoclip<cr>", "Clipboard" },
       d = { "<cmd>DiffviewOpen<cr>", "Diff View Open" },
       D = { "<cmd>DiffviewClose<cr>", "Diff View Close" },
-      i = { "<cmd>PackerInstall<cr>", "Install" },
+      i = { "<cmd>Lazy install<cr>", "Install Packages" },
       m = {
         "<cmd>lua require('telescope').extensions.macroscope.default()<cr>",
         "Macros",
       },
-      p = { "<cmd>PackerProfile<cr>", "Profile" },
-      s = { "<cmd>PackerSync<cr>", "Sync" },
-      S = { "<cmd>PackerStatus<cr>", "Status" },
-      u = { "<cmd>PackerUpdate<cr>", "Update" },
+      s = { "<cmd>Lazy sync<cr>", "Package Sync" },
+      S = { "<cmd>Lazy<cr>", "Lazy" },
+      u = { "<cmd>Lazy update<cr>", "Update Packages" },
       -- x = { "<cmd>cd %:p:h<cr>", "Change Directory" },
       -- x = { "<cmd>set autochdir<cr>", "Auto ChDir" },
       x = { "<cmd>Telescope cder<cr>", "Change Directory" },

@@ -178,6 +178,7 @@ function M.setup()
         hidden = true,
         find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
       },
+      tailiscope = { theme = "dropdown" },
       file_browser = {
         cwd_to_path = true,
         grouped = true,
@@ -238,7 +239,7 @@ function M.setup()
 
   telescope.load_extension("fzf")
   telescope.load_extension("project") -- telescope-project.nvim
-  telescope.load_extension("repo")
+  -- telescope.load_extension("repo")
   telescope.load_extension("file_browser")
   telescope.load_extension("projects") -- project.nvim
   telescope.load_extension("dap")
@@ -252,6 +253,7 @@ function M.setup()
   telescope.load_extension("gh")
   telescope.load_extension("zoxide")
   telescope.load_extension("cder")
+  telescope.load_extension("tailiscope")
 end
 
 return M

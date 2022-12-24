@@ -1,5 +1,5 @@
-require("plugins")
 require("config.options")
-require("config.impatient")
+require("plugins")
+require("config.colorscheme")
 require("config.autocommands")
 require("config.keymaps")
