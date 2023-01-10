@@ -40,12 +40,11 @@ function M.setup()
       "  Find file",
       "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{cwd = '/home/andrew', previewer = false})<cr>"
     ),
-    dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
     dashboard.button("p", "  Find project", ":Telescope projects <CR>"),
-    dashboard.button("o", "  Norg Start", ":Neorg workspace work<CR>"),
-    dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
-    dashboard.button("l", "  Lazy Package Manager", ":Lazy<CR>"),
-    dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
+    dashboard.button("o", "🎛️ Obsidian Today", ":ObsidianToday<CR>"),
+    dashboard.button("c", "🎚️ Configuration", ":e ~/.config/nvim/init.lua <CR>"),
+    dashboard.button("l", "👽 Lazy Package Manager", ":Lazy<CR>"),
+    dashboard.button("q", "👣 Quit Neovim", ":qa<CR>"),
   }
 
   local function footer()

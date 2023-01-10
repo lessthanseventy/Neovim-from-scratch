@@ -91,15 +91,7 @@ local v_opts = {
 
 local function normal_keymap()
   local keymap = {
-    ["<F1>"] = {
-      "<cmd>lua require('browse.devdocs').search()<cr>",
-      "Search devdocs.io",
-    },
     ["<tab>"] = { "<cmd>b#<cr>", "Previous window" },
-    ["/"] = {
-      "<cmd>lua require('telescope.builtin').live_grep()<cr>",
-      "Find in repo",
-    },
     ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
     ["b"] = {
       "<cmd>lua require('telescope.builtin').buffers()<cr>",
@@ -141,17 +133,12 @@ local function normal_keymap()
       v = { "<C-w>v", "Split window right" },
     },
 
-    j = {
-      name = "Jump",
-      a = { "<Cmd>lua require('harpoon.mark').add_file()<Cr>", "Add File" },
-      m = {
-        "<Cmd>lua require('harpoon.ui').toggle_quick_menu()<Cr>",
-        "UI Menu",
-      },
-      c = {
-        "<Cmd>lua require('harpoon.cmd-ui').toggle_quick_menu()<Cr>",
-        "Command Menu",
-      },
+    n = {
+      name = "Obsidian",
+      t = { "<cmd>ObsidianToday<cr>", "Obsidian Today" },
+      n = { "<cmd>ObsidianNew<cr>", "Obsidian New" },
+      b = { "<cmd>ObsidianBacklinks<cr>", "Backlinks in current file" },
+      o = { "<cmd>ObsidianOpen<cr>", "Obsidian Open" },
     },
 
     o = {
@@ -353,6 +340,38 @@ local function visual_keymap()
   whichkey.register(keymap, v_opts)
 end
 
+local function search_keymap()
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+      vim.schedule(SearchKey)
+    end,
+  })
+
+  function SearchKey()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+    local keymap_s = {} -- normal key map
+    local keymap_s_v = {} -- visual key map
+
+    if ft == "markdown" then
+      whichkey.register({
+        ["<leader>/"] = {
+          "<cmd>ObsidianQuickSwitch<cr>",
+          "Find in Notes",
+        },
+      })
+    else
+      whichkey.register({
+        ["<leader>/"] = {
+          "<cmd>lua require('telescope.builtin').live_grep()<cr>",
+          "Find in Repo",
+        },
+      })
+    end
+  end
+end
+
 local function code_keymap()
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
@@ -495,6 +514,7 @@ function M.setup()
   normal_keymap()
   visual_keymap()
   code_keymap()
+  search_keymap()
 end
 
 local Terminal = require("toggleterm.terminal").Terminal
