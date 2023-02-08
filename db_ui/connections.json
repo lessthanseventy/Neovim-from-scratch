@@ -10,5 +10,9 @@
   {
     "url": "sqlite:///~/projects/ectoprint/Ectoprint_dev",
     "name": "ectoprint_dev"
+  },
+  {
+    "url": "jdbc:sqlserver://localhost:1533;user=SA;password=Str0ngP4ssw0rd!",
+    "name": "specto_it_up-development-db-1"
   }
 ]

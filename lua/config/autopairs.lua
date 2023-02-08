@@ -1,20 +1,26 @@
 local M = {}
 
 function M.setup()
-  local npairs = require "nvim-autopairs"
-  npairs.setup {
+  local npairs = require("nvim-autopairs")
+  npairs.setup({
     check_ts = true,
-  }
-  npairs.add_rules(require "nvim-autopairs.rules.endwise-elixir")
+    disable_filetype = {
+      "TelescopePrompt",
+      "guihua",
+      "guihua_rust",
+      "clap_input",
+    },
+  })
+  npairs.add_rules(require("nvim-autopairs.rules.endwise-elixir"))
 end
 
-local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local cmp_status_ok, cmp = pcall(require, "cmp")
 
 if not cmp_status_ok then
   return
 end
 
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done {})
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({}))
 
 return M

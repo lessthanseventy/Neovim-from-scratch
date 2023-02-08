@@ -79,23 +79,6 @@ function M.setup(servers, server_options)
         server = opts,
       })
     end,
-    -- ["elixirls"] = function()
-    -- 	local opts = vim.tbl_deep_extend("force", server_options, servers["elixirls"] or {})
-    -- 	local nls_utils = require("null-ls.utils")
-    -- 	require("elixir").setup({
-    -- 		cmd = "/home/andrew/.local/share/nvim/mason/packages/elixir-ls/language_server.sh",
-    -- 		on_attach = function(client, bufnr)
-    -- 			vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-    -- 			require("config.lsp.keymaps").setup(client, bufnr)
-    -- 			-- Configure highlighting
-    -- 			require("config.lsp.highlighter").setup(client, bufnr)
-    -- 			-- Configure formatting
-    -- 			require("config.lsp.null-ls.formatters").setup(client, bufnr)
-    -- 			require("cmp_nvim_lsp").default_capabilities(opts.capabilities)
-    -- 		end,
-    -- 		root_dir = nls_utils.root_pattern(".git"),
-    -- 	})
-    -- end,
   })
 end
 

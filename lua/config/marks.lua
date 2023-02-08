@@ -17,6 +17,7 @@ function M.setup()
       "dbui",
       "sql",
       "neoterm",
+      "noice",
     },
   })
 end

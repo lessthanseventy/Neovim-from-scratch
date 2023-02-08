@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup()
   require("noice").setup({
-    popupmenu = { enabled = true },
+    popupmenu = { enabled = false },
     cmdline = {
       enabled = true, -- enables the Noice cmdline UI
       view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
@@ -53,7 +53,6 @@ function M.setup()
         auto_open = {
           enabled = true,
           trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
-          luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
           throttle = 50, -- Debounce lsp signature help request by 50ms
         },
         view = nil, -- when nil, use defaults from documentation
@@ -80,11 +79,24 @@ function M.setup()
     presets = {
       -- you can enable a preset by setting it to true, or a table that will override the preset config
       -- you can also add custom presets that you can enable/disable with enabled=true
+      long_message_to_split = true,
       bottom_search = true, -- use a classic bottom cmdline for search
       command_palette = false, -- position the cmdline and popupmenu together
       lsp_doc_border = true, -- add a border to hover docs and signature help
     },
-    routes = {},
+    redirect = { { view = "popup", filter = { event = "msg_show" } } },
+    routes = {
+      { view = "notify", filter = { event = "msg_showmode" } },
+      {
+        view = "notify",
+        filter = { find = "No information available" },
+        opts = { skip = true },
+      },
+      {
+        filter = { event = "msg_show", kind = "search_count" },
+        opts = { skip = true },
+      },
+    },
     views = {
       cmdline_popup = {
         position = { row = 20, col = "50%" },

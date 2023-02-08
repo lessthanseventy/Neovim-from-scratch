@@ -212,6 +212,10 @@ local function normal_keymap()
         "<cmd>lua require('utils.term').system_info_toggle()<cr>",
         "Btop",
       },
+      p = {
+        "<cmd>lua require('utils.term').project_info_toggle()<cr>",
+        "Btop",
+      },
       d = { "<cmd>lua _LAZYDOCKER_TOGGLE()<cr>", "Lazydocker" },
       ["|"] = {
         "<cmd>ToggleTerm size=80 direction=vertical<cr>",

@@ -1,7 +1,9 @@
 ## LaunchScout.nvim
+
 A Neovim Distribution for polyglots. Particularly nice for Elixir ;)
 
 ## Core Ideas
+
 It is based around the concept of space as a leader key. Whichkey is used to display a helpful menu with the shortcuts.
 
 - `Ctrl+hjkl` moves between windows.
@@ -15,6 +17,7 @@ It is based around the concept of space as a leader key. Whichkey is used to dis
 - `<Space> g g` to get a pop-up window displaying [Lazygit]("https://github.com/jesseduffield/lazygit#configuration")
 
 ## Install Neovim nightly
+
 ```sh
 asdf plugin add neovim
 asdf install neovim nightly
@@ -31,12 +34,11 @@ git clone https://github.com/lessthanseventy/neovim-config/ ~/.config/nvim
 
 Run `nvim` press colon to enter command mode. Then enter `PackerSync` and press enter to install the plugins.
 
-**NOTE** (You will notice treesitter pulling in a bunch of parsers the next time you open Neovim) 
+**NOTE** (You will notice treesitter pulling in a bunch of parsers the next time you open Neovim)
 
 **NOTE** Checkout this file for some predefined keymaps: [keymaps](https://github.com/lessthanseventy/neovim-config/blob/master/lua/config/keymaps.lua)
 
 **NOTE** Checkout this file for the whichkey keymaps: [keymaps](https://github.com/lessthanseventy/neovim-config/blob/master/lua/config/whichkey.lua)
-
 
 ## Get healthy
 
@@ -75,7 +77,7 @@ Next we need to install python support (node is optional)
   npm i -g neovim
   ```
 
-We will also need `ripgrep` for Telescope to work: 
+We will also need `ripgrep` for Telescope to work:
 
 - On mac
 
@@ -88,10 +90,10 @@ We will also need `ripgrep` for Telescope to work:
   ```sh
   brew install ripgrep
   ```
+
 ---
 
 **NOTE** make sure you have [node](https://nodejs.org/en/) installed through asdf.
-
 
 ## Fonts
 
@@ -237,7 +239,6 @@ You can install new plugins here: [plugins](https://github.com/lessthanseventy/n
 - "jedrzejboczar/possession.nvim"
 - "folke/todo-comments.nvim"
 - "sindrets/diffview.nvim"
-- "liuchengxu/vista.vim"
 - "sidebar-nvim/sidebar.nvim"
 - "stevearc/aerial.nvim"
 - "hkupty/iron.nvim"
@@ -254,4 +255,5 @@ You can install new plugins here: [plugins](https://github.com/lessthanseventy/n
 - "mg979/vim-visual-multi"
 - "anuvyklack/hydra.nvim"
 - "levouh/tint.nvim"
+
 ---

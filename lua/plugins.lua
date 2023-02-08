@@ -1,5 +1,3 @@
-local fn = vim.fn
-
 -- Automatically install lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -135,19 +133,6 @@ local plugins = {
     end,
   },
   {
-    "pwntester/octo.nvim",
-    cmd = "Octo",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "kyazdani42/nvim-web-devicons",
-    },
-
-    config = function()
-      require("octo").setup()
-    end,
-  },
-  {
     "akinsho/git-conflict.nvim",
     cmd = {
       "GitConflictChooseTheirs",
@@ -189,13 +174,6 @@ local plugins = {
       require("config.indentblankline").setup()
     end,
   }, -- Better icons
-  {
-    "kyazdani42/nvim-web-devicons",
-
-    config = function()
-      require("nvim-web-devicons").setup({ default = true })
-    end,
-  }, -- Better Comment
   {
     "terrortylor/nvim-comment",
 
@@ -312,13 +290,13 @@ local plugins = {
   "moll/vim-bbye",
   "romainl/vim-cool",
   { "yamatsum/nvim-nonicons", dependencies = { "kyazdani42/nvim-web-devicons" } },
-  -- {
-  --   "edluffy/specs.nvim",
-  --
-  -- config = function()
-  --     require("config.specs").setup()
-  --   end,
-  -- },
+  {
+    "edluffy/specs.nvim",
+
+    config = function()
+      require("config.specs").setup()
+    end,
+  },
   {
     "kevinhwang91/nvim-hlslens",
     config = function()
@@ -406,7 +384,6 @@ local plugins = {
   -- Status line
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons", lazy = true },
     config = function()
       require("config.lualine").setup()
     end,
@@ -424,7 +401,6 @@ local plugins = {
       require("config.treesitter").setup()
     end,
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/playground",
       "windwp/nvim-ts-autotag",
       "RRethy/vim-illuminate",
@@ -544,19 +520,14 @@ local plugins = {
           })
         end,
       },
-      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "lukas-reineke/cmp-rg",
-      {
-        "L3MON4D3/LuaSnip",
-        config = function()
-          require("config.snip").setup()
-        end,
-      },
-      "rafamadriz/friendly-snippets",
-      "honza/vim-snippets",
     },
   },
+  "hrsh7th/vim-vsnip",
+  "hrsh7th/cmp-vsnip",
+  "rafamadriz/friendly-snippets",
+  "honza/vim-snippets",
   { "onsails/lspkind.nvim" }, -- Auto pairs
   {
     "windwp/nvim-autopairs",
@@ -568,7 +539,7 @@ local plugins = {
   {
     "windwp/nvim-ts-autotag",
     config = function()
-      require("nvim-ts-autotag").setup({ enable = true })
+      require("nvim-ts-autotag").setup()
     end,
   }, -- End wise
   { "RRethy/nvim-treesitter-endwise" }, -- LSP
@@ -594,7 +565,7 @@ local plugins = {
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "RRethy/vim-illuminate",
-      "jose-elias-alvarez/null-ls.nvim", -- {
+      "jose-elias-alvarez/null-ls.nvim",
       "b0o/schemastore.nvim",
       "jose-elias-alvarez/typescript.nvim",
       {
@@ -618,6 +589,89 @@ local plugins = {
     },
   }, -- trouble.nvim
   {
+    "dnlhc/glance.nvim",
+    config = function()
+      local glance = require("glance")
+      local actions = glance.actions
+
+      glance.setup({
+        height = 18, -- Height of the window
+        zindex = 45,
+        preview_win_opts = { -- Configure preview window options
+          cursorline = true,
+          number = true,
+          wrap = true,
+        },
+        border = {
+          enable = true, -- Show window borders. Only horizontal borders allowed
+          top_char = "―",
+          bottom_char = "―",
+        },
+        list = {
+          position = "right", -- Position of the list window 'left'|'right'
+          width = 0.33, -- 33% width relative to the active window, min 0.1, max 0.5
+        },
+        theme = { -- This feature might not work properly in nvim-0.7.2
+          enable = true, -- Will generate colors for the plugin based on your current colorscheme
+          mode = "auto", -- 'brighten'|'darken'|'auto', 'auto' will set mode based on the brightness of your colorscheme
+        },
+        mappings = {
+          list = {
+            ["j"] = actions.next, -- Bring the cursor to the next item in the list
+            ["k"] = actions.previous, -- Bring the cursor to the previous item in the list
+            ["<Down>"] = actions.next,
+            ["<Up>"] = actions.previous,
+            ["<Tab>"] = actions.next_location, -- Bring the cursor to the next location skipping groups in the list
+            ["<S-Tab>"] = actions.previous_location, -- Bring the cursor to the previous location skipping groups in the list
+            ["<C-u>"] = actions.preview_scroll_win(5),
+            ["<C-d>"] = actions.preview_scroll_win(-5),
+            ["v"] = actions.jump_vsplit,
+            ["s"] = actions.jump_split,
+            ["t"] = actions.jump_tab,
+            ["<CR>"] = actions.jump,
+            ["o"] = actions.jump,
+            ["<C-h>"] = actions.enter_win("preview"), -- Focus preview window
+            ["q"] = actions.close,
+            ["Q"] = actions.close,
+            ["<Esc>"] = actions.close,
+            -- ['<Esc>'] = false -- disable a mapping
+          },
+          preview = {
+            ["Q"] = actions.close,
+            ["<Tab>"] = actions.next_location,
+            ["<S-Tab>"] = actions.previous_location,
+            ["<C-l>"] = actions.enter_win("list"), -- Focus list window
+          },
+        },
+        hooks = {
+          before_open = function(results, open, jump, method)
+            local uri = vim.uri_from_bufnr(0)
+            if #results == 1 then
+              local target_uri = results[1].uri or results[1].targetUri
+
+              if target_uri == uri then
+                jump(results[1])
+              else
+                open(results)
+              end
+            else
+              open(results)
+            end
+          end,
+        },
+        folds = {
+          fold_closed = "",
+          fold_open = "",
+          folded = false, -- Automatically fold list on startup
+        },
+        indent_lines = { enable = true, icon = "│" },
+        winbar = {
+          enable = true, -- Available strating from nvim-0.8+
+        },
+      })
+    end,
+  },
+  {
     "folke/trouble.nvim",
     config = function()
       require("trouble").setup({ use_diagnostic_signs = true })
@@ -629,7 +683,20 @@ local plugins = {
       require("renamer").setup({})
     end,
   }, -- Elixir
-  { "mhanberg/elixir.nvim" },
+  -- {
+  --   "mhanberg/elixir.nvim",
+  --   config = function()
+  --     require("elixir").setup({
+  --       cmd = "/home/andrew/.local/share/nvim/mason/packages/elixir-ls/debugger.sh",
+  --       settings = require("elixir").settings({
+  --         dialyzerEnabled = false,
+  --         fetchDeps = false,
+  --         enableTestLenses = true,
+  --         suggestSpecs = false,
+  --       }),
+  --     })
+  --   end,
+  -- },
   { "metakirby5/codi.vim" }, -- Rust
   {
     "simrat39/rust-tools.nvim",
@@ -675,9 +742,35 @@ local plugins = {
     end,
   },
   {
-    "andrewferrier/debugprint.nvim",
+    "rareitems/printer.nvim",
     config = function()
-      require("debugprint").setup({})
+      require("printer").setup({
+        keymap = "gp", -- Plugin doesn't have any keymaps by default
+        formatters = {
+          -- you can define your formatters for specific filetypes
+          -- by assigning function that takes two strings
+          -- one text modified by 'add_to_inside' function
+          -- second the variable (thing) you want to print out
+          -- see examples in lua/formatters.lua
+          lua = function(inside, variable)
+            return string.format('print("%s: " .. %s)', inside, variable)
+          end,
+          elixir = function(inside, variable)
+            return string.format('IO.inspect(%s, label: "\\n%s\\n")', variable, inside)
+          end,
+          ruby = function(inside, variable)
+            return string.format('pp "%s = ", %s', inside, variable)
+          end,
+        },
+        -- function which modifies the text inside string in the print statement, by default it adds the path and line number
+        add_to_inside = function(text)
+          return string.format("[%s:%s] %s", vim.fn.expand("%"), vim.fn.line("."), text)
+        end,
+        -- set to to indenity function to turn off the default behaviour
+        -- add_to_inside = function(text)
+        --     return text
+        -- end,
+      })
     end,
   }, -- Test
   {
@@ -725,13 +818,13 @@ local plugins = {
       require("pqf").setup()
     end,
   }, -- Code folding
-  -- {
-  --   "kevinhwang91/nvim-ufo",
-  --   dependencies = "kevinhwang91/promise-async",
-  --   config = function()
-  --     require("config.ufo").setup()
-  --   end,
-  -- }, -- Performance
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    config = function()
+      require("config.ufo").setup()
+    end,
+  }, -- Performance
   { "dstein64/vim-startuptime" },
   {
     "nathom/filetype.nvim",
@@ -767,7 +860,32 @@ local plugins = {
   {
     "nvim-zh/colorful-winsep.nvim",
     config = function()
-      require("colorful-winsep").setup({})
+      require("colorful-winsep").setup({
+        -- timer refresh rate
+        interval = 30,
+        -- This plugin will not be activated for filetype in the following table.
+        no_exec_files = {
+          "TelescopePrompt",
+          "mason",
+          "CompetiTest",
+          "NvimTree",
+          "prompt",
+          "ultestsummary",
+          "spectre_panel",
+          "toggleterm",
+          "pr",
+          "help",
+          "telescope",
+          "dbout",
+          "dbui",
+          "sql",
+          "csv",
+          "neoterm",
+          "noice",
+        },
+        -- Symbols for separator lines, the order: horizontal, vertical, top left, top right, bottom left, bottom right.
+        symbols = { "━", "┃", "┏", "┓", "┗", "┛" },
+      })
     end,
   }, -- Web
   {
@@ -803,13 +921,6 @@ local plugins = {
     dependencies = "nvim-lua/plenary.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
   }, -- Sidebar
-  {
-    "liuchengxu/vista.vim",
-    cmd = { "Vista" },
-    config = function()
-      vim.g.vista_default_executive = "nvim_lsp"
-    end,
-  },
   {
     "sidebar-nvim/sidebar.nvim",
     cmd = { "SidebarNvimToggle" },
@@ -867,6 +978,7 @@ local plugins = {
       "SnipLive",
     },
   }, -- Database
+  { "/mechatroner/rainbow_csv" },
   {
     "tpope/vim-dadbod",
     lazy = true,

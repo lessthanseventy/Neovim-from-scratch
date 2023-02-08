@@ -16,7 +16,7 @@ vim.opt.splitbelow = true -- force all horizontal splits to go below current win
 vim.opt.splitright = true -- force all vertical splits to go to the right of current window
 vim.opt.swapfile = true -- creates a swapfile
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
-vim.opt.timeoutlen = 150 -- time to wait for a mapped sequence to complete (in milliseconds)
+vim.opt.timeoutlen = 250 -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.undofile = true -- enable persistent undo
 vim.opt.updatetime = 300 -- faster completion (4000ms default)
 vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
@@ -40,16 +40,22 @@ vim.opt.foldcolumn = "0"
 vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.opt.laststatus = 3
 vim.opt.mousemodel = "extend"
 vim.opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
 -- Requires nightly
--- vim.opt.splitkeep = "screen"
+vim.opt.splitkeep = "screen"
 
 vim.g.context_add_mappings = 0 -- disable vim.context keybindings
 
 vim.g["test#neovim#start_normal"] = 1
 vim.g["test#neovim#term_position"] = "belowright"
+
+vim.cmd([[
+  let g:vsnip_filetypes = {}
+  let g:vsnip_filetypes.elixir = ['eelixir', 'heex']
+]])
 
 vim.g.db_ui_auto_execute_table_helpers = 1
 vim.g.db_ui_use_nerd_fonts = 1

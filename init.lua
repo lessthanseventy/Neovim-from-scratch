@@ -1,4 +1,5 @@
 require("config.options")
+require("config.statusline")
 require("plugins")
 require("config.colorscheme")
 require("config.autocommands")

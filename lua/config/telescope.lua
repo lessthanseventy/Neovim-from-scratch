@@ -119,7 +119,7 @@ function M.setup()
           ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
           ["<C-l>"] = actions.complete_tag,
           ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
-          ["<c-z>"] = trouble.open_with_trouble,
+          ["<c-t>"] = trouble.open_with_trouble,
         },
 
         n = {
@@ -156,6 +156,7 @@ function M.setup()
           ["<PageDown>"] = actions.results_scrolling_down,
 
           ["?"] = actions.which_key,
+          ["<c-t>"] = trouble.open_with_trouble,
         },
       },
       history = {
@@ -166,14 +167,8 @@ function M.setup()
     pickers = {
       find_files = {
         mappings = {
-          n = {
-            ["y"] = nvb_actions.file_path,
-            ["s"] = nvb_actions.visidata,
-          },
-          i = {
-            ["<C-y>"] = nvb_actions.file_path,
-            ["<C-s>"] = nvb_actions.visidata,
-          },
+          n = { ["y"] = nvb_actions.file_path },
+          i = { ["<C-y>"] = nvb_actions.file_path },
         },
         hidden = true,
         find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
@@ -187,14 +182,8 @@ function M.setup()
       },
       git_files = {
         mappings = {
-          n = {
-            ["y"] = nvb_actions.file_path,
-            ["s"] = nvb_actions.visidata,
-          },
-          i = {
-            ["<C-y>"] = nvb_actions.file_path,
-            ["<C-s>"] = nvb_actions.visidata,
-          },
+          n = { ["y"] = nvb_actions.file_path },
+          i = { ["<C-y>"] = nvb_actions.file_path },
         },
       },
     },
